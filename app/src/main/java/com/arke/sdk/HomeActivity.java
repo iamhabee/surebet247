@@ -1,11 +1,13 @@
 package com.arke.sdk;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ import timber.log.Timber;
 public class HomeActivity extends AppCompatActivity {
 
 
+    private static final int SCAN_QR_CODE = 1234;
     private static String innerHTML;
     private static AlertDialog dialog;
     private WebView webview;
@@ -73,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .create();
         // create a folder to store logo
-        createFolder("/RukkabetAgent/assets/screenshots");
+        createFolder("/Surebet247/assets/logo");
 //        initialize web view
         webview = (WebView) findViewById(R.id.homeWebView);
 //        initialize progress bar
@@ -81,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
         refreshBtn = (Button) findViewById(R.id.refreshWebNavBtn);
         rukkaLogo = (ConstraintLayout) findViewById(R.id.loaderConstraint);
 //        set target url
-        setTargetUrl("https://mobile.rukkabet.com");
+        setTargetUrl("https://www.surebet247.com/sports/?lp=native#/");
 //        load url
         loadUrlToWebview(this.targetUrl);
     }
@@ -92,6 +95,19 @@ public class HomeActivity extends AppCompatActivity {
         if (!f.exists()) {
             if (!f.mkdirs()) {
                 Log.d("Storage path created", myfolder);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SCAN_QR_CODE){
+            if(resultCode == Activity.RESULT_OK){
+                String code = data.getStringExtra("result");
+                SlipValidator slipValidator = new SlipValidator(HomeActivity.this);
+                slipValidator.validateSlipThenPrint(code);
+
             }
         }
     }
@@ -141,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void startScan(View view) {
         Intent intent = new Intent(this, ScanActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, SCAN_QR_CODE);
     }
 
 

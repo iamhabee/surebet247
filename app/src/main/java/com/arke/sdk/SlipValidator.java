@@ -47,7 +47,7 @@ public class SlipValidator extends AppCompatActivity {
     private static final int FONT_SIZE_SMALL = 0;
     private static final int FONT_SIZE_NORMAL = 1;
     private static final int FONT_SIZE_LARGE = 2;
-    private static final String DIR = "/storage/emulated/0/RukkabetAgent/assets/screenshots/";
+    private static final String DIR = "/storage/emulated/0/Surebet247/assets/logo/";
     private static final String divider = "===========================================";
     private static final String single_divider = "***********************************";
 
@@ -73,7 +73,7 @@ public class SlipValidator extends AppCompatActivity {
 
         this.progDialog.setMessage("Validating Slip...");
         this.progDialog.show();
-        notifyUser();
+        notifyUser(slipCode);
 //        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
 //                Request.Method.GET,
 //                URL,
@@ -106,24 +106,27 @@ public class SlipValidator extends AppCompatActivity {
 //        requestQueue.add(jsonObjectRequest);
     }
 
-    private void notifyUser(){
+    private void notifyUser(String slipCode){
 //        List<Selection> selections = JSON.parseArray(selectionArray, Selection.class);
                 List<Selection> selections = Arrays.asList(new Selection[]{
-                        new Selection("1", 1, 1, 1, "1", "football", "laliga", "league", "event", "start date", 1, "market name", "specifies", 1,  "odd name", "type", 2,"score", 1,  "settled", "created", "updated" )
+                        new Selection("1", 1, 1, 1, "1", "football", "laliga", "league", "camp nou - Barca Vs Real madrid", "2019-11-20", 1, "0/U 1.5", slipCode, 1,  "odd name", "type", 2,"score", 1,  "settled", "created", "updated" ),
+                        new Selection("2", 2, 2, 2, "2", "football", "Premier league", "league", "old trafford - Man U Vs Chelsea", "2019-11-20", 1, "0/U 1.5", slipCode, 2,  "odd name", "type", 2,"score", 1,  "settled", "created", "updated" ),
+                        new Selection("3", 3, 3, 3, "3", "football", "bundels liga", "league", "emirate - Dortmund Vs Ajax", "2019-11-20", 1, "0/U 1.5", slipCode, 3,  "odd name", "type", 2,"score", 1,  "settled", "created", "updated" ),
+                        new Selection("4", 4, 4, 4, "4", "football", "seria A", "league", "sansiro - Inter milan Vs Ac milan", "2019-11-20", 1, "0/U 1.5", slipCode, 4,  "odd name", "type", 2,"score", 1,  "settled", "created", "updated" )
 //                        String id, int bet_id, int event_id, int provider_id, String element_id, String sport, String category, String tournament, String event, String start_date, int market_id, String market_name, String specifiers, int odd_id, String odd_name, String type, float odds, String score, int status, String settled_at, String created_at, String updated_at
                 });
 
 //                Selection slipSelection = null;
 
                 String betslip_id = "id";
-                String coupon_code = "Coupon code";
-                String user_id = "user id";
+                String coupon_code = "5282jhd";
+                String user_id = "100023";
                 String odds = "2.5";
-                String pot_winnings = "200";
+                String pot_winnings = "20000";
                 String bonus = "120";
                 String stake = "222";
-                String created_at = "created at";
-                String bet_type = "get type";
+                String created_at = "2019-11-18 12:00:32";
+                String bet_type = "Multiple "+ slipCode;
 
                 BettingStake slipInfo = new BettingStake();
                 slipInfo.stakeDetails(betslip_id, coupon_code, user_id, bet_type, created_at, stake, odds, bonus, pot_winnings);
@@ -205,7 +208,7 @@ public class SlipValidator extends AppCompatActivity {
             Printer.getInstance().setPrnGray(5);
 
             // Add logo
-//            Printer.getInstance().addImage(AlignMode.CENTER, readAssetsFileStorage(DIR+"rukka_bet_logo.png"));
+            Printer.getInstance().addImage(AlignMode.CENTER, readAssetsFileStorage(DIR+"rukka_bet_logo.png"));
             setFontSpec(FONT_SIZE_SMALL);
             Printer.getInstance().addText(AlignMode.CENTER, "License N. I6H3MO/148K20");
             Printer.getInstance().addText(AlignMode.CENTER, "PLAYED REMINDER");
@@ -459,7 +462,7 @@ public class SlipValidator extends AppCompatActivity {
             }
 
         }
-
+        Log.d("BYTE FILE ", var5.toString());
         return (byte[])var5;
     }
 

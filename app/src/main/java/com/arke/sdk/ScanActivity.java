@@ -1,6 +1,7 @@
 package com.arke.sdk;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -65,9 +66,10 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
 
     @Override
     public void handleResult(Result rawResult) {
-            processRawRequest(rawResult.getText());
-            Log.d("Sunsin", "Passes here");
-            zXingScannerView.startCamera();
+        Intent intent = new Intent();
+        intent.putExtra("result", rawResult.getText());
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
 
